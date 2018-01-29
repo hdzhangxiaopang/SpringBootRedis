@@ -52,17 +52,30 @@ public class RedisServiceImpl implements RedisService {
 
     @Override
     public boolean cacheValue(String key, String value) {
+
+        return cacheValue(key,value,-1);
+    }
+
+    @Override
+    public boolean cacheValueIfExist(String k, String value) {
+
         return false;
     }
 
     @Override
-    public boolean cacheValueIfExist(String key, String value) {
-        return false;
-    }
-
-    @Override
-    public boolean chacheValueIfExist(String key, String value, long time) {
-        return false;
+    public boolean chacheValueIfExist(String k, String value, long time) {
+        String key = KEY_PREFIX_VALUE + k;
+        Boolean result = false;
+        try {
+            ValueOperations<String,String> valueOperations = redisTemplate.opsForValue();
+            valueOperations.setIfAbsent(k,value);
+            if(time>0){
+                redisTemplate.expire(key,time,TimeUnit.SECONDS);
+            }
+        } catch (Throwable t) {
+            LOGGER.error("缓存[" + key + "]失败, value[" + value + "]", t);
+        }
+        return result;
     }
 
     @Override
@@ -98,7 +111,7 @@ public class RedisServiceImpl implements RedisService {
 
     @Override
     public boolean removeValue(String key) {
-        return false;
+       return remove(key);
     }
 
     @Override
@@ -168,6 +181,16 @@ public class RedisServiceImpl implements RedisService {
 
     @Override
     public boolean removeOneOfList(String k) {
+        return false;
+    }
+
+    public boolean remove(String key){
+        try {
+            redisTemplate.delete(key);
+            return true;
+        } catch (Exception e) {
+            LOGGER.error("删除指定内容失败key["+key+"],error:"+e);
+        }
         return false;
     }
 }

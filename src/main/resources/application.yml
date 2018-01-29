@@ -1,0 +1,37 @@
+#server configure
+server:
+  port: 8080
+  connection-timeout: 3000
+  tomcat:
+    uri-encoding: UTF-8
+    max-connections: 600 #给定时间接受和处理的最大连接数
+    max-threads: 600 #表示最多同时处理的连接数
+    min-spare-threads: 50 #初始化创建的线程数
+    accept-count: 700 #当同时连接的人数达到maxThreads时，还可以排队，队列大小为n,超过n就不处理
+  context-path: /springboot
+
+#spring configure
+spring:
+  application:
+    name: spring_boot_redis
+  http:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
+  messages:
+    cache-seconds: 3600
+    encoding: UTF-8
+    fallback-to-system-locale: false
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    timeout: 2000
+    database: 5
+    pool:
+      max-active: 8
+      max-idle: 8
+      max-wait: -1
+      min-idle: 0
+
+
