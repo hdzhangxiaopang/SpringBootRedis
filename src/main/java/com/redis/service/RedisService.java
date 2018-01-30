@@ -28,7 +28,7 @@ public interface RedisService {
     /**
      * key存在的时候添加,否则不添加
      * */
-    boolean chacheValueIfExist(String key,String value,long time);
+    boolean cacheValueIfExist(String key,String value,long time);
 
     /**
      * 是否包含

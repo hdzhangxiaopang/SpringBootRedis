@@ -60,11 +60,11 @@ public class RedisServiceImpl implements RedisService {
     @Override
     public boolean cacheValueIfExist(String k, String value) {
 
-        return chacheValueIfExist(k,value,-1);
+        return cacheValueIfExist(k,value,-1);
     }
 
     @Override
-    public boolean chacheValueIfExist(String k, String value, long time) {
+    public boolean cacheValueIfExist(String k, String value, long time) {
         String key = KEY_PREFIX_VALUE + k;
         Boolean result = false;
         try {
