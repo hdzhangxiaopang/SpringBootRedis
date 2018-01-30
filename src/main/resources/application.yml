@@ -1,3 +1,6 @@
+#log configure
+logging:
+  config: classpath:config/logback.xml
 #server configure
 server:
   port: 8080
@@ -33,5 +36,6 @@ spring:
       max-idle: 8
       max-wait: -1
       min-idle: 0
+
 
 
